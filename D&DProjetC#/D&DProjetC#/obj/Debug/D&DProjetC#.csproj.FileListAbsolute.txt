@@ -1,0 +1,7 @@
+C:\Users\alkaa\source\repos\D&DProjetC#\D&DProjetC#\obj\Debug\D&DProjetC#.csproj.AssemblyReference.cache
+C:\Users\alkaa\source\repos\D&DProjetC#\D&DProjetC#\obj\Debug\D&DProjetC#.csproj.CoreCompileInputs.cache
+C:\Users\alkaa\source\repos\D&DProjetC#\D&DProjetC#\bin\Debug\D&DProjetC#.exe.config
+C:\Users\alkaa\source\repos\D&DProjetC#\D&DProjetC#\bin\Debug\D&DProjetC#.exe
+C:\Users\alkaa\source\repos\D&DProjetC#\D&DProjetC#\bin\Debug\D&DProjetC#.pdb
+C:\Users\alkaa\source\repos\D&DProjetC#\D&DProjetC#\obj\Debug\D&DProjetC#.exe
+C:\Users\alkaa\source\repos\D&DProjetC#\D&DProjetC#\obj\Debug\D&DProjetC#.pdb
