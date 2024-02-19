@@ -2,7 +2,7 @@ using System;
 
 namespace D_DProjetC_
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
         {
@@ -65,7 +65,11 @@ namespace D_DProjetC_
                     case 1:
                         Console.WriteLine("Vous explorez le donjon...");
                         // Ajoutez ici le code pour gérer l'exploration du donjon
+<<<<<<< HEAD
+
+=======
                         
+>>>>>>> 00f4665388f82b5f939bc7b81c4f59b969eb89b2
                         break;
                     case 2:
                         Console.WriteLine(personnage.GetInfo());
@@ -82,6 +86,9 @@ namespace D_DProjetC_
             }
         }
     }
+<<<<<<< HEAD
+}
+=======
 
     // Classe de base pour les personnages
     class Personnage
@@ -163,3 +170,4 @@ namespace D_DProjetC_
         }
     }
 }
+>>>>>>> 00f4665388f82b5f939bc7b81c4f59b969eb89b2

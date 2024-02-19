@@ -43,8 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChefGobelin.cs" />
+    <Compile Include="Entite.cs" />
+    <Compile Include="GobelinArcher.cs" />
+    <Compile Include="GobelinGuerrier.cs" />
+    <Compile Include="GobelinMage.cs" />
+    <Compile Include="Guerrier.cs" />
+    <Compile Include="Mage.cs" />
+    <Compile Include="Personnage.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Voleur.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
