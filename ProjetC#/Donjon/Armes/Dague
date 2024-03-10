@@ -1,0 +1,38 @@
+using System;
+
+public class Dague
+{
+    public string Nom { get; set; }
+    public string Description { get; set; }
+    public int FurtiviteBonus { get; set; }
+    public double ChanceCritique { get; set; }
+
+    // Constructeur
+    public Dague(string nom, string description, int furtiviteBonus, double chanceCritique)
+    {
+        Nom = nom;
+        Description = description;
+        FurtiviteBonus = furtiviteBonus;
+        ChanceCritique = chanceCritique;
+    }
+
+    // Méthode pour afficher les détails de l'arme
+    public void AfficherDetails()
+    {
+        Console.WriteLine($"Nom : {Nom}");
+        Console.WriteLine($"Description : {Description}");
+        Console.WriteLine($"Bonus de Furtivité : +{FurtiviteBonus}");
+        Console.WriteLine($"Chance Critique : {ChanceCritique}%");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Exemple d'utilisation de la classe Dague
+        Dague lameDOmbre = new Dague("Lame d'Ombre", "Une dague effilée, ornée de motifs sombres.", 2, 15.0);
+        lameDOmbre.AfficherDetails();
+
+    }
+}
