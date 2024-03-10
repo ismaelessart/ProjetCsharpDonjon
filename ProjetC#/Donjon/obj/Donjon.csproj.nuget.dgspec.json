@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\Isma\\Documents\\ProjetC#\\Donjon\\Donjon.csproj": {}
+    "C:\\Users\\Isma\\Documents\\ProjetC#\\Donjon\\Donjon.csproj": {}
   },
   "projects": {
-    "c:\\Users\\Isma\\Documents\\ProjetC#\\Donjon\\Donjon.csproj": {
+    "C:\\Users\\Isma\\Documents\\ProjetC#\\Donjon\\Donjon.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\Isma\\Documents\\ProjetC#\\Donjon\\Donjon.csproj",
+        "projectUniqueName": "C:\\Users\\Isma\\Documents\\ProjetC#\\Donjon\\Donjon.csproj",
         "projectName": "Donjon",
-        "projectPath": "c:\\Users\\Isma\\Documents\\ProjetC#\\Donjon\\Donjon.csproj",
+        "projectPath": "C:\\Users\\Isma\\Documents\\ProjetC#\\Donjon\\Donjon.csproj",
         "packagesPath": "C:\\Users\\Isma\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\Isma\\Documents\\ProjetC#\\Donjon\\obj\\",
+        "outputPath": "C:\\Users\\Isma\\Documents\\ProjetC#\\Donjon\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Isma\\AppData\\Roaming\\NuGet\\NuGet.Config"

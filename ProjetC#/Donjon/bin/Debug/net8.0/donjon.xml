@@ -1,5 +1,5 @@
 <donjon>
-    <salle id="1" nom="Salle du trésor ">
+    <salle id="1" nom="Salle de l'entrée">
         <portes>
             <porte vers="4" />
             <porte vers="2" />
@@ -21,7 +21,7 @@
             <porte vers="6" />
         </portes>
     </salle>
-    <salle id="4" nom="Salle l'entrée">
+    <salle id="4" nom="Salle du trésor">
         <portes>
             <porte vers="1" />
             <porte vers="5" />
