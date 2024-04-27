@@ -1,0 +1,62 @@
+<donjon>
+    <salle id="1" nom="Salle de l'entrée">
+        <portes>
+            <porte vers="4" />
+            <porte vers="2" />
+            <porte vers="7" />
+        </portes>
+    </salle>
+    <salle id="2" nom="Salle du labyrinthe">
+        <portes>
+            <porte vers="1" />
+            <porte vers="5" />
+            <porte vers="3" />
+            <porte vers="8" />
+        </portes>
+    </salle>
+    <salle id="3" nom="Salle des énigmes">
+        <portes>
+            <porte vers="2" />
+            <porte vers="9" />
+            <porte vers="6" />
+        </portes>
+    </salle>
+    <salle id="4" nom="Salle du trésor">
+        <portes>
+            <porte vers="1" />
+            <porte vers="5" />
+        </portes>
+    </salle>
+    <salle id="5" nom="Salle des gardiens">
+        <portes>
+            <porte vers="4" />
+            <porte vers="2" />
+            <porte vers="6" />
+        </portes>
+    </salle>
+    <salle id="6" nom="Salle des défis">
+        <portes>
+            <porte vers="5" />
+            <porte vers="3" />
+        </portes>
+    </salle>
+    <salle id="7" nom="Salle des mystères">
+        <portes>
+            <porte vers="1" />
+            <porte vers="8" />
+        </portes>
+    </salle>
+    <salle id="8" nom="Salle de la grandeur">
+        <portes>
+            <porte vers="7" />
+            <porte vers="2" />
+            <porte vers="9" />
+        </portes>
+    </salle>
+    <salle id="9" nom="Salle des illusions">
+        <portes>
+            <porte vers="8" />
+            <porte vers="3" />
+        </portes>
+    </salle>
+</donjon>
