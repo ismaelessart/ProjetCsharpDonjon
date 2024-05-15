@@ -17,6 +17,7 @@ namespace D_DProjetC_
     public int ChanceBonus { get; set; }
     public int PointsDeVieBonus { get; set; }
     protected int NombreSorts { get; set; }
+    protected List<string> sorts = new List<string>();
 
     public Arme(string nom, string description, string rarete, int degats, int pointsDeVieBonus,int sagesseBonus, int intelligenceBonus, int dexteriteBonus, int forceBonus, int armureBonus, int resistanceMagiqueBonus, int chanceBonus)
     {
@@ -31,9 +32,12 @@ namespace D_DProjetC_
         ResistanceMagiqueBonus = resistanceMagiqueBonus;
         ChanceBonus = chanceBonus;
         PointsDeVieBonus = pointsDeVieBonus;
+        CreerArme();
 
-        Random rand = new Random();
-            int rareteIndex = rand.Next(4); 
+    public void CréerArme()
+        {
+            Random rand = new Random();
+            int rareteIndex = rand.Next(4);
             switch (rareteIndex)
             {
                 case 0:
@@ -47,7 +51,7 @@ namespace D_DProjetC_
                     ArmureBonus *= 1;
                     ResistanceMagiqueBonus *= 1;
                     ChanceBonus *= 1;
-                    NombreSorts = 1; 
+                    NombreSorts = 1;
                     break;
                 case 1:
                     Rarete = "Rare";
@@ -60,7 +64,7 @@ namespace D_DProjetC_
                     ArmureBonus *= 2;
                     ResistanceMagiqueBonus *= 2;
                     ChanceBonus *= 2;
-                    NombreSorts = 2; 
+                    NombreSorts = 2;
                     break;
                 case 2:
                     Rarete = "Épique";
@@ -73,7 +77,7 @@ namespace D_DProjetC_
                     ArmureBonus *= 3;
                     ResistanceMagiqueBonus *= 3;
                     ChanceBonus *= 3;
-                    NombreSorts = 3; 
+                    NombreSorts = 3;
                     break;
                 case 3:
                     Rarete = "Légendaire";
@@ -86,14 +90,25 @@ namespace D_DProjetC_
                     ArmureBonus *= 4;
                     ResistanceMagiqueBonus *= 4;
                     ChanceBonus *= 4;
-                    NombreSorts = 4; 
+                    NombreSorts = 4;
                     break;
                 default:
-                    Rarete = "Commun"; 
+                    Rarete = "Commun";
                     NombreSorts = 1;
                     break;
             }
-    }
+
+            var sortsDisponibles = new List<string>(sorts);
+            List<string> sortsChoisis = new List<string>();
+            for (int i = 0; i < NombreSorts; i++)
+            {
+                int indexSort = rand.Next(sortsDisponibles.Count);
+                sortsChoisis.Add(sortsDisponibles[indexSort]);
+                sortsDisponibles.RemoveAt(indexSort);
+            }
+
+            sorts = sortsChoisis;
+        }
 
     public void AfficherDetails()
     {
@@ -109,6 +124,7 @@ namespace D_DProjetC_
         Console.WriteLine($"Armure Bonus : +{ArmureBonus}");
         Console.WriteLine($"Resistance Magique Bonus : +{ResistanceMagiqueBonus}");
         Console.WriteLine($"Chance Bonus : +{ChanceBonus}");
+    }
     }
     }
 }
