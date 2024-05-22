@@ -4,21 +4,23 @@ namespace D_DProjetC_
 {
     public class Personnage : Entite
     {
-        public string Nom { get; set; }
+        public new string Nom => nom;
         private new int niveau;
         private new int chance;
         public int Position { get; set; } 
         public Donjon Donjon { get; set; } 
         public Salle SalleActuelle { get; set; }
-        public Arme ArmeEquipee { get; set; }
+        public new Arme ArmeEquipee { get; set; }
+        public string TypeArme { get; set; }
+        private bool aFui = false;
+
 
 
         private double experience;
         private readonly int experienceGagnee;
 
-        public Personnage(string nom) : base(nom)
+        public Personnage(string nom, Donjon donjon) : base(nom)
         {
-            Nom = nom;
             Position = 0;
             niveau = 1;
             experience = 0;
@@ -30,42 +32,86 @@ namespace D_DProjetC_
             armure = 10;
             resistanceMagique = 5;
             sagesse = 5;
+            this.Donjon = donjon;
         }
 
-        public void EngagerCombat(List<Ennemi> ennemis)
+        public void EngagerCombat(IEnumerable<Entite> ennemis)
         {
-            while (this.IsAlive && ennemis.Any(e => e.IsAlive))
+            List<Entite> ennemisList = ennemis.ToList();
+
+             while (this.IsAlive && ennemisList.Any(e => e.IsAlive)&& !aFui)
             {
                 // Tour du joueur
                 Console.WriteLine("C'est à votre tour de jouer !");
-                Combat(ennemis);
+                Combat(ennemisList);
 
                 // Vérifiez si tous les ennemis sont morts
-                if (ennemis.All(e => !e.IsAlive))
+                if (ennemisList.All(e => !e.IsAlive))
                 {
                     Console.WriteLine("Vous avez vaincu tous les ennemis !");
                     break;
                 }
 
                 // Tours des ennemis
-                foreach (var ennemi in ennemis.Where(e => e.IsAlive))
+                foreach (var ennemi in ennemisList.Where(e => e.IsAlive))
                 {
-                    ennemi.Attaquer(this);
+                    int degatsEnnemi = ennemi.Attaquer();
+                    this.RecevoirDegats(degatsEnnemi);
                     Console.WriteLine($"{ennemi.Nom} vous attaque, il vous reste {this.PointsDeVie} points de vie.");
 
                     // Vérifiez si le personnage est toujours en vie
                     if (!this.IsAlive)
                     {
                         Console.WriteLine("Vous êtes mort !");
+                        Thread.Sleep(3000);
+                        Console.Clear();
+                        Program.RetourMenuPrincipal();
                         return;
                     }
                 }
             }
         }
 
+
+
+        public void Combat(IEnumerable<Entite> ennemis)
+        {
+            Console.WriteLine("Choisissez une action :");
+            Console.WriteLine("1. Attaquer");
+            Console.WriteLine("2. Fuir");
+
+            int choixAction;
+            if (int.TryParse(Console.ReadLine(), out choixAction))
+            {
+                switch (choixAction)
+                {
+                    case 1:
+                        AttaqueBase(ennemis);
+                        break;
+                    case 2:
+                        Console.WriteLine("Vous essayez de fuir...");
+                        Thread.Sleep(3000);
+                        if (TenterFuite())
+                        {
+                        aFui = true; 
+                        RetournerSalleEntree();
+                        }
+                        break;
+                    default:
+                        Console.WriteLine("Choix invalide !");
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Veuillez entrer un numéro valide.");
+            }
+        }
+
+
         public override int Attaquer()
         {
-            int degats = force;
+            int degats = base.Attaquer(); // Utiliser la méthode de base pour obtenir les dégâts de base
             if (ArmeEquipee != null)
             {
                 degats += ArmeEquipee.Degats;
@@ -73,20 +119,22 @@ namespace D_DProjetC_
             return degats;
         }
 
-        public void AttaqueBase(List<Ennemi> ennemis)
+        public void AttaqueBase(IEnumerable<Entite> ennemis)
         {
+            List<Entite> ennemisList = ennemis.ToList();
+
             Console.WriteLine("Choisissez un ennemi à attaquer :");
-            for (int i = 0; i < ennemis.Count; i++)
+            for (int i = 0; i < ennemisList.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. {ennemis[i].Nom} (PV: {ennemis[i].PointsDeVie})");
+                Console.WriteLine($"{i + 1}. {ennemisList[i].Nom} (PV: {ennemisList[i].PointsDeVie})");
             }
 
             int choixEnnemi = Convert.ToInt32(Console.ReadLine()) - 1;
-            if (choixEnnemi >= 0 && choixEnnemi < ennemis.Count)
+            if (choixEnnemi >= 0 && choixEnnemi < ennemisList.Count)
             {
                 int degats = Attaquer();
-                ennemis[choixEnnemi].RecevoirDegats(degats);
-                Console.WriteLine($"Vous attaquez {ennemis[choixEnnemi].Nom}, il reste {ennemis[choixEnnemi].PointsDeVie} points de vie.");
+                ennemisList[choixEnnemi].RecevoirDegats(degats);
+                Console.WriteLine($"Vous attaquez {ennemisList[choixEnnemi].Nom}, il lui reste {ennemisList[choixEnnemi].PointsDeVie} points de vie.");
             }
             else
             {
@@ -153,10 +201,10 @@ namespace D_DProjetC_
             }
         }
 
-        public static Personnage CreerPersonnage()
+        public static Personnage CreerPersonnage(Donjon donjon)
         {
             string nom = ObtenirNomPersonnage();
-            Personnage nouveauPersonnage = new Personnage(nom);
+            Personnage nouveauPersonnage = new Personnage(nom, donjon);
             AttribuerPointsCaracteristiques(nouveauPersonnage);
             return nouveauPersonnage;
         }
@@ -280,16 +328,6 @@ namespace D_DProjetC_
                         {
                             Console.WriteLine($"Vous entrez dans la salle : {salleDestination.Nom}");
                             personnage.SalleActuelle = salleDestination;
-
-                            if (salleDestination.Ennemis.Any())
-                            {
-                                Console.WriteLine("Des ennemis vous attaquent !");
-                                personnage.EngagerCombat(salleDestination.Ennemis);
-                            }
-                            else
-                            {
-                                Console.WriteLine("La salle est vide.");
-                            }
                         }
                         else
                         {
@@ -305,37 +343,33 @@ namespace D_DProjetC_
                 {
                     Console.WriteLine("Veuillez entrer un numéro de porte valide.");
                 }
-                if (!personnage.IsAlive())
+            }
+        }
+
+        static void AfficherSalleActuelle(Personnage personnage)
+        {
+            Console.WriteLine($"Vous êtes dans la salle : {personnage.SalleActuelle.Nom}");
+            string descriptionSalle = personnage.SalleActuelle.Description();
+            Console.WriteLine(descriptionSalle);
+        }
+
+        static void AfficherOptionsPortes(Personnage personnage, Donjon donjon)
+        {
+            Console.WriteLine("Choisissez une porte pour vous déplacer :");
+            for (int i = 0; i < personnage.SalleActuelle.Portes.Count; i++)
+            {
+                int idSalleDestination = personnage.SalleActuelle.Portes[i];
+                Salle salleDestination = donjon.Salles.FirstOrDefault(s => s.Id == idSalleDestination);
+                if (salleDestination != null)
                 {
-                    Console.WriteLine("Vous êtes mort");
-                    break;
+                    Console.WriteLine($"{i + 1}. {salleDestination.Nom}");
                 }
             }
         }
 
-static void AfficherSalleActuelle(Personnage personnage)
-{
-    Console.WriteLine($"Vous êtes dans la salle : {personnage.SalleActuelle.Nom}");
-}
-
-static void AfficherOptionsPortes(Personnage personnage, Donjon donjon)
-{
-    Console.WriteLine("Choisissez une porte pour vous déplacer :");
-    for (int i = 0; i < personnage.SalleActuelle.Portes.Count; i++)
-    {
-        int idSalleDestination = personnage.SalleActuelle.Portes[i];
-        Salle salleDestination = donjon.Salles.FirstOrDefault(s => s.Id == idSalleDestination);
-        if (salleDestination != null)
-        {
-            Console.WriteLine($"{i + 1}. {salleDestination.Nom}");
-        }
-    }
-}
-
-public void EquiperArme(Arme arme)
+        public void EquiperArme(Arme arme)
         {
             ArmeEquipee = arme;
-
             pointsDeVie += arme.PointsDeVieBonus;
             armure += arme.ArmureBonus;
             resistanceMagique += arme.ResistanceMagiqueBonus;
@@ -346,5 +380,73 @@ public void EquiperArme(Arme arme)
             chance += arme.ChanceBonus;
             pointsDeVie += arme.PointsDeVieBonus;
         }
-}
-}
+
+        public override void RecevoirDegats(int degats)
+        {
+            PointsDeVie -= degats;
+            if (PointsDeVie <= 0)
+            {
+                EstMort = true;
+            }
+        }
+        private void RetournerSalleEntree()
+        {
+            Console.WriteLine("Vous retournez à la salle de l'entrée.");
+            SalleActuelle = Donjon.Salles.FirstOrDefault(s => s.Id == 1);
+        }
+        private bool TenterFuite()
+        {
+            Random random = new Random();
+            int resultat = random.Next(1, 101); 
+
+            int probabiliteReussite = 50;
+
+            if (resultat <= probabiliteReussite)
+            {
+                Console.WriteLine("Vous avez réussi à fuir, mais vous avez été blessé !");
+                return true; 
+            }
+            else
+            {
+                Console.WriteLine("Vous n'avez pas réussi à fuir !");
+                return false; 
+            }
+        }
+        /*public void ChoisirTypeArme()
+        {
+            Console.WriteLine("Choisissez le type d'arme :");
+            Console.WriteLine("1. Épée");
+            Console.WriteLine("2. Marteau");
+            Console.WriteLine("3. Bâton");
+            Console.WriteLine("4. Dagues");
+            Console.Write("Entrez votre choix : ");
+            int choix;
+            if (int.TryParse(Console.ReadLine(), out choix))
+            {
+                string typeArme;
+                switch (choix)
+                {
+                    case 1:
+                        typeArme = "Epee";
+                        break;
+                    case 2:
+                        typeArme = "Marteau";
+                        break;
+                    case 3:
+                        typeArme = "Baton";
+                        break;
+                    case 4:
+                        typeArme = "Dagues";
+                        break;
+                    default:
+                        Console.WriteLine("Choix invalide !");
+                        return;
+                }*/
+                /*Arme armeAleatoire = ArmeFactory.CreerArmeAleatoire(typeArme);
+            }
+            else
+            {
+                Console.WriteLine("Entrée invalide !");
+            }*/
+        }
+    }

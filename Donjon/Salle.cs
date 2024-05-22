@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using System.Linq;
 
 namespace D_DProjetC_
 {
@@ -14,17 +15,20 @@ namespace D_DProjetC_
         public List<int> Portes { get; set; }
         public int Id { get; internal set; }
         public List<Ennemi> Ennemis { get; set; }
+        public List<Arme> Armes { get; set; }
         public Salle(string nom, List<int> portes)
         {
             Nom = nom;
             Portes = portes;
             Ennemis = new List<Ennemi>();
+            Armes = Armes;
         }
 
         public Salle()
         {
             Portes = new List<int>();
             Ennemis = new List<Ennemi>();
+            Armes = new List<Arme>();
         }
 
         public string Description()
@@ -38,13 +42,10 @@ namespace D_DProjetC_
 
             return description;
         }
-        public void GenererEnnemis(List<Ennemi> ennemisDisponibles)
+        public void AjouterEnnemi(Ennemi ennemi)
         {
-            Ennemis.Clear();
-            foreach (var ennemi in ennemisDisponibles)
-            {
-                Ennemis.Add(ennemi);
-            }
+            Ennemis.Add(ennemi);
         }
+
     }
 }

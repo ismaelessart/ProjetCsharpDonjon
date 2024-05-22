@@ -10,7 +10,7 @@ namespace D_DProjetC_
     {
         protected int niveau;
         protected string nom;
-        protected bool estMort=false;
+        public bool EstMort { get; protected set; }
         protected int chance;
         protected int pointsDeVie;
         protected int sagesse;
@@ -19,7 +19,12 @@ namespace D_DProjetC_
         protected int force;
         protected int armure;
         protected int resistanceMagique;
-
+                public bool IsAlive{ get { return !EstMort; }}
+        public Entite(string nom)
+        {
+            this.nom = nom;
+            EstMort = false;
+        }
         public string Nom => nom;
         public int PointsDeVie
         {
@@ -30,28 +35,25 @@ namespace D_DProjetC_
                 if (pointsDeVie <= 0)
                 {
                     pointsDeVie = 0;
-                    estMort = true;
+                    EstMort = true;
                 }
             }
         }
 
-        public void Attaquer(Entite uneEntite) 
+        public virtual int Attaquer()
         {
             return force;
         }
+        
 
-        protected void PerdrePointsDeVie(int pointsDeVie)
+        public virtual void RecevoirDegats(int degats)
         {
-            int degatsReels = degats - armure;
-            if (degatsReels > 0)
+            PointsDeVie -= degats;
+            if (PointsDeVie <= 0)
             {
-                PointsDeVie -= degatsReels;
+                EstMort = true;
             }
         }
 
-        public bool EstMort()
-        {
-            return this.estMort;
-        }
     }
 }

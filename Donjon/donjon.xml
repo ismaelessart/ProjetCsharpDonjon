@@ -1,5 +1,5 @@
 <donjon>
-    <salle id="1" nom="Salle de l'entr�e">
+    <salle id="1" nom="Salle de l'entree">
         <portes>
             <porte vers="4" />
             <porte vers="2" />
@@ -13,26 +13,25 @@
             <porte vers="3" />
             <porte vers="8" />
         </portes>
-    
     </salle>
-    <salle id="3" nom="Salle des �nigmes">
+    <salle id="3" nom="Salle des enigmes">
         <portes>
             <porte vers="2" />
             <porte vers="9" />
             <porte vers="6" />
         </portes>
         <ennemis>
-        <ennemi type="Goblin" nombre="3" />
-        <ennemi type="Orc" nombre="2" />
-    </ennemis>
+            <ennemi type="Gobelin" nombre="1" />
+        </ennemis>
     </salle>
-    
-    <salle id="4" nom="Salle du tr�sor">
+    <salle id="4" nom="Salle du tresor">
         <portes>
             <porte vers="1" />
             <porte vers="5" />
         </portes>
-        
+        <ennemis>
+            <ennemi type="Squelette" nombre="1" />
+        </ennemis>
     </salle>
     <salle id="5" nom="Salle des gardiens">
         <portes>
@@ -40,20 +39,28 @@
             <porte vers="2" />
             <porte vers="6" />
         </portes>
+        <ennemis>
+            <ennemi type="Orc" nombre="1" />
+            <ennemi type="Gobelin" nombre="1" />
+            <ennemi type="Squelette" nombre="1" />
+        </ennemis>
     </salle>
-    <salle id="6" nom="Salle des d�fis">
+    <salle id="6" nom="Salle des defis">
         <portes>
             <porte vers="5" />
             <porte vers="3" />
         </portes>
+        <ennemis>
+            <ennemi type="Orc" nombre="1" />
+            <ennemi type="Gobelin" nombre="1" />
+            <ennemi type="Squelette" nombre="1" />
+        </ennemis>
     </salle>
-    <salle id="7" nom="Salle des myst�res">
+    <salle id="7" nom="Salle des mysteres">
         <portes>
             <porte vers="1" />
             <porte vers="8" />
         </portes>
-       
-           
     </salle>
     <salle id="8" nom="Salle de la grandeur">
         <portes>
@@ -61,11 +68,17 @@
             <porte vers="2" />
             <porte vers="9" />
         </portes>
+        <ennemis>
+            <ennemi type="Gobelin" nombre="1" />
+        </ennemis>
     </salle>
     <salle id="9" nom="Salle des illusions">
         <portes>
             <porte vers="8" />
             <porte vers="3" />
         </portes>
+        <ennemis>
+            <ennemi type="Squelette" nombre="1" />
+        </ennemis>
     </salle>
 </donjon>

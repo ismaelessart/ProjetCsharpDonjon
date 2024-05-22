@@ -1,14 +1,19 @@
-public class Sorcier : Ennemi
+using System;
+
+namespace D_DProjetC_
 {
-    public Sorcier() : base("Sorcier")
+    public class Sorcier : Ennemi
     {
-        niveau = 4;
-        pointsDeVie = 40;
-        sagesse = 25;
-        intelligence = 30;
-        dexterite = 10;
-        force = 5;
-        armure = 5;
-        resistanceMagique = 20;
+        public Sorcier() : base("Sorcier")
+        {
+            niveau = 4;
+            pointsDeVie = 40;
+            sagesse = 25;
+            intelligence = 30;
+            dexterite = 10;
+            force = 5;
+            armure = 5;
+            resistanceMagique = 20;
+        }
     }
 }
